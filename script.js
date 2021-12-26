@@ -267,3 +267,32 @@ console.log(account.latest);
 account.latest = 50;
 console.log(account.movements); // [200, 530, 120, 300, 50]
  */
+
+///////////////////////////////////////////
+// Object.create
+// 3rd way of creating Objects
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.init("Steven", 2002);
+steven.calcAge();
+// steven.name = "Steven";
+// steven.birthYear = 2002;
+
+console.log(steven.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+console.log(sarah);
+sarah.init("Sarah", 1979);
+sarah.calcAge();
