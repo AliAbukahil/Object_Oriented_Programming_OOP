@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 /* 
 ////////////////////////////////////////////////
 // Constructor Functions and the new Operator
@@ -158,9 +158,10 @@ mercedes.accelerate();
 // const PersonC1 = class {}
 
 // class declaration
+
 class PersonC1 {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
@@ -175,12 +176,30 @@ class PersonC1 {
   greet() {
     console.log(`Hey ${this.firstName}`);
   }
+
+  // getter in class
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // Set a property that already exists
+  // any setter method needs to have exactly one parameter
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(" ")) this._fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
 }
 
 // creating new instance
-const jessica = new PersonC1('Jessica', 1996);
+const jessica = new PersonC1("Jessica Davis", 1996);
 console.log(jessica);
 jessica.calcAge();
+console.log(jessica.age);
 
 console.log(jessica.__proto__ === PersonC1.prototype);
 
@@ -200,3 +219,32 @@ jessica.greet();
 
 // 3. the body of a class is always executed in strict mode
 // And so even if we didn't activate "use strict" for the entire //// script file on the Top, all the code that is in the class will be executed in strict mode
+
+// creating new instance
+const walter = new PersonC1("Walter White", 1965);
+
+// Setters and Getters
+
+// Object literal
+const account = {
+  owner: "Jonas",
+  movements: [200, 530, 120, 300],
+
+  // Getter
+  get latest() {
+    const who = this.movements.slice(-1).pop();
+    return who;
+  },
+
+  // Setter
+  // any setter method needs to have exactly one parameter
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+
+// How do we use the setter now
+account.latest = 50;
+console.log(account.movements); // [200, 530, 120, 300, 50]
