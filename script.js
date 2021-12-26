@@ -1,5 +1,5 @@
 "use strict";
-/* 
+
 ////////////////////////////////////////////////
 // Constructor Functions and the new Operator
 const Person = function (firstName, birthYear, profession) {
@@ -15,22 +15,29 @@ const Person = function (firstName, birthYear, profession) {
   //   };
 };
 
-const jonas = new Person('Jonas', 1991, 'Teacher');
-const ali = new Person('ali', 1986, ' Developer');
+const jonas = new Person("Jonas", 1991, "Teacher");
+const ali = new Person("ali", 1986, " Developer");
 
 // 1. New {} is created
 // 2. function is called, the this keyword is this new created Object = {}
 // 3. {} linked to a prototype
 // 4. function automatically return {}
 
-const matilda = new Person('Matilda', 2017, 'Baby');
-const jack = new Person('Jack', 1975, 'butcher');
+const matilda = new Person("Matilda", 2017, "Baby");
+const jack = new Person("Jack", 1975, "butcher");
 console.log(jonas, ali, matilda, jack);
 
 console.log(jonas instanceof Person);
 
-console.log(Person.prototype);
+// adding a Static Method to the Person constructor
+Person.hey = function () {
+  console.log(`Hey there! 👋`);
+  console.log(this);
+};
 
+Person.hey();
+
+/////////////////////////////////////////
 // Prototypes
 Person.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
@@ -52,11 +59,11 @@ console.log(Person.prototype.isPrototypeOf(Person));
 // Shouldn't Person.prototype be the prototype of Person
 // I mean should this .prototype peoperty here not be the prototype of Person
 
-Person.prototype.species = 'Homo Sapiens';
+Person.prototype.species = "Homo Sapiens";
 console.log(jonas.species, ali.species, matilda.species);
 
-console.log(jonas.hasOwnProperty('firstName'));
-console.log(jonas.hasOwnProperty('species'));
+console.log(jonas.hasOwnProperty("firstName"));
+console.log(jonas.hasOwnProperty("species"));
 
 // AGAIN Rememnber, Person.prototype is not actually the prototype of Person, but of all the objects that are created througth the Person function like (jonas, ali, matilda, jack)
 
@@ -80,9 +87,9 @@ Array.prototype.unique = function () {
 };
 console.log(arr.unique());
 
-const h1 = document.querySelector('h1');
+const h1 = document.querySelector("h1");
 
-console.dir(x => x + 1);
+console.dir((x) => x + 1);
 
 // console.log(arr2.unique());
 
@@ -91,7 +98,6 @@ console.dir(x => x + 1);
 
 // const arr3 = new Set([5, 5, 8, 8, 9, 9, 7, 7, 11, 11, 14, 14]);
 // console.log([...arr3]);
- */
 
 // Object Oriented Programming (OOP)
 
@@ -165,7 +171,8 @@ class PersonC1 {
     this.birthYear = birthYear;
   }
 
-  // How mMtheds are created in ES6 Classes
+  // Instance Methods
+  // How Methods are created in ES6 Classes
   // Methods will be added to .prototype property of PersonC1 class
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -192,6 +199,13 @@ class PersonC1 {
 
   get fullName() {
     return this._fullName;
+  }
+
+  //Static Method
+  // creating a Static Method in the ES& class constructor
+  static hey() {
+    console.log(`Hey there! 👋`);
+    console.log(this);
   }
 }
 
@@ -223,6 +237,10 @@ jessica.greet();
 // creating new instance
 const walter = new PersonC1("Walter White", 1965);
 
+PersonC1.hey();
+
+/* 
+////////////////////////////////////////
 // Setters and Getters
 
 // Object literal
@@ -248,3 +266,4 @@ console.log(account.latest);
 // How do we use the setter now
 account.latest = 50;
 console.log(account.movements); // [200, 530, 120, 300, 50]
+ */
