@@ -1,5 +1,5 @@
 "use strict";
-
+/* 
 ////////////////////////////////////////////////
 // Constructor Functions and the new Operator
 const Person = function (firstName, birthYear, profession) {
@@ -36,9 +36,10 @@ Person.hey = function () {
 };
 
 Person.hey();
-
+ */
 /////////////////////////////////////////
 // Prototypes
+/* 
 Person.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
 };
@@ -98,9 +99,10 @@ console.dir((x) => x + 1);
 
 // const arr3 = new Set([5, 5, 8, 8, 9, 9, 7, 7, 11, 11, 14, 14]);
 // console.log([...arr3]);
-
+ */
 // Object Oriented Programming (OOP)
 
+//////////////////////////////////////
 // Coding Challenge #1
 
 /* 
@@ -163,8 +165,9 @@ mercedes.accelerate();
 // class expression
 // const PersonC1 = class {}
 
-// class declaration
+/* 
 
+// class declaration
 class PersonC1 {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
@@ -234,10 +237,11 @@ jessica.greet();
 // 3. the body of a class is always executed in strict mode
 // And so even if we didn't activate "use strict" for the entire //// script file on the Top, all the code that is in the class will be executed in strict mode
 
+ */
 // creating new instance
-const walter = new PersonC1("Walter White", 1965);
+// const walter = new PersonC1("Walter White", 1965);
 
-PersonC1.hey();
+// PersonC1.hey();
 
 /* 
 ////////////////////////////////////////
@@ -317,6 +321,8 @@ sarah.calcAge();
 
 // GOOD LUCK 😀
 
+//solution
+/* 
 class CarCl {
   constructor(make, speed) {
     this.make = make;
@@ -349,3 +355,43 @@ ford.accelerate();
 ford.brake();
 ford.speedUS = 50;
 console.log(ford);
+ */
+
+// Constructor function
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+// Constructor function
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+// Creating a connection manually using Object.create function
+Student.prototype = Object.create(Person.prototype);
+
+// Adding a Method
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student("Mike", 2020, "Computer Science");
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+
+Student.prototype.constructor = Student;
+
+console.dir(Student.prototype.constructor);
