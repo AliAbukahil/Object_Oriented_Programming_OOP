@@ -422,7 +422,7 @@ Test data:
 Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%
 
 GOOD LUCK 😀 */
-
+/* 
 //solution
 const Car = function (make, speed) {
   this.make = make;
@@ -467,3 +467,80 @@ tesla.chargeBattery(90);
 console.log(tesla);
 // tesla.brake();
 tesla.accelerate();
+ */
+
+////////////////////////////////////
+// Inheritance Between "Classes": ES& Classes
+class PersonC1 {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Instance Methods
+  // How Methods are created in ES6 Classes
+  // Methods will be added to .prototype property of PersonC1 class
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  //   species = 'Homo Sapiens';
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+
+  // getter in class
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // Set a property that already exists
+  // any setter method needs to have exactly one parameter
+  set fullName(name) {
+    if (name.includes(" ")) this._fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  //Static Method
+  // creating a Static Method in the ES& class constructor
+  static hey() {
+    console.log(`Hey there! 👋`);
+    console.log(this);
+  }
+}
+
+// inheriting from the PersonC1 with the (extends) key
+class StudentC1 extends PersonC1 {
+  constructor(fullName, birthYear, course) {
+    // the super function links the similer arguments in the parent class which is the PersonC1 && no need to use this Keyword.
+    // Always need to happen first, the super function I mean!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+  // this calcAge() method will override or is shadowing the one in the parent class which is the PersonC1
+  calcAge() {
+    console.log(
+      `I'm ${
+        2037 - this.birthYear
+      } years old, but as a student I feel more like ${
+        2037 - this.birthYear + 10
+      }`
+    );
+  }
+}
+
+const martha = new StudentC1("Martha Jones", 2012, "Computer Science");
+console.log(martha);
+martha.introduce();
+martha.calcAge();
+martha.greet();
