@@ -548,6 +548,9 @@ martha.greet();
 
  */
 
+/* 
+////////////////////////////////////////////
+// Inheritance Between Classes Object.create()
 const PersonProto = {
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -579,3 +582,50 @@ const jay = Object.create(StudentProto);
 jay.init("Jay", 2010, "Computer Science");
 jay.introduce();
 jay.calcAge();
+ */
+
+///////////////////////////////////////
+// Another class Example
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // Public interface of object
+  // creating a deposit method
+  deposit(val) {
+    this.movements.push(val);
+  }
+  // creating a withdraw mthod
+  withdraw(val) {
+    // calling a mwthod inside another mothed
+    this.deposit(-val);
+  }
+  // approve loan Method
+  approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
+    }
+  }
+}
+
+const acc1 = new Account("Majde", "EUR", 1111);
+// doing a deposit
+acc1.deposit(250);
+// doing a withdraw
+acc1.withdraw(140);
+// requesting loan
+acc1.requestLoan(1000);
+console.log(acc1);
