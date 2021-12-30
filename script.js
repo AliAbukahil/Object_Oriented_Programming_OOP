@@ -591,17 +591,23 @@ class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
-    this.movements = [];
+    // faking eccapsulation by simply using a convention _movements, cuz ES6 dont support data eccapsulation and data privacy
+    // Protected property
+    this._pin = pin;
+    this._movements = [];
     this.locale = navigator.language;
 
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
   // Public interface of object
+  getMovements() {
+    return this._movements;
+  }
+
   // creating a deposit method
   deposit(val) {
-    this.movements.push(val);
+    this._movements.push(val);
   }
   // creating a withdraw mthod
   withdraw(val) {
@@ -609,12 +615,12 @@ class Account {
     this.deposit(-val);
   }
   // approve loan Method
-  approveLoan(val) {
+  _approveLoan(val) {
     return true;
   }
 
   requestLoan(val) {
-    if (this.approveLoan(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
     }
@@ -622,6 +628,9 @@ class Account {
 }
 
 const acc1 = new Account("Majde", "EUR", 1111);
+
+// acc1._movements.push(250);
+// acc1._movements.push(-140);
 // doing a deposit
 acc1.deposit(250);
 // doing a withdraw
@@ -629,3 +638,6 @@ acc1.withdraw(140);
 // requesting loan
 acc1.requestLoan(1000);
 console.log(acc1);
+console.log(acc1.getMovements());
+
+// faking eccapsulation by simply using a convention, cuz ES6 dont support data eccapsulation and data privacy
