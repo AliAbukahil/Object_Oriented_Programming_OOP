@@ -761,6 +761,7 @@ Data car 1: 'Rivian' going at 120 km/h, with a charge of 23%
 GOOD LUCK 😀
  */
 
+//solution
 class CarCl {
   constructor(make, speed) {
     this.make = make;
