@@ -587,11 +587,13 @@ jay.calcAge();
 ///////////////////////////////////////
 // Another class Example
 
+/* 
+
 class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    // faking eccapsulation by simply using a convention _movements, cuz ES6 dont support data eccapsulation and data privacy
+    // faking eccapsulation by simply using a convention among Developers _movements, cuz ES6 dont support data eccapsulation and data privacy
     // Protected property
     this._pin = pin;
     this._movements = [];
@@ -640,4 +642,90 @@ acc1.requestLoan(1000);
 console.log(acc1);
 console.log(acc1.getMovements());
 
-// faking eccapsulation by simply using a convention, cuz ES6 dont support data eccapsulation and data privacy
+ */
+///////////////////////////////////
+// 21. Encapsulation Private Class Fields and Methods
+
+// 1) Public fields
+// 2) private fields
+// 3) Public methods
+// 4) Private methods
+// there is also the static version
+
+class Account {
+  // 1) Public fields available (on the instances) not on the prototype
+  locale = navigator.language;
+
+  // 2) private fields available (on the instances) not on the prototype
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // Protected property
+    this.#pin = pin;
+    // this._movements = [];
+    // this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // 3) Public methods
+
+  // Public interface of object
+  getMovements() {
+    return this.#movements;
+  }
+
+  // creating a deposit method
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  // creating a withdraw mthod
+  withdraw(val) {
+    // calling a mwthod inside another mothed
+    this.deposit(-val);
+  }
+
+  requestLoan(val) {
+    // if (this._approveLoan(val)) {
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
+    }
+  }
+
+  // static methods
+  // this method will not be available on all the instances, but only on the class itself
+  static helper() {
+    console.log(`Helper`);
+  }
+
+  // 4) Private methods
+  // #approveLoan(val) {
+  _approveLoan(val) {
+    return true;
+  }
+}
+
+const acc1 = new Account("Majde", "EUR", 1111);
+
+// acc1._movements.push(250);
+// acc1._movements.push(-140);
+// doing a deposit
+acc1.deposit(250);
+// doing a withdraw
+acc1.withdraw(140);
+// requesting loan
+acc1.requestLoan(1000);
+console.log(acc1.getMovements());
+console.log(acc1);
+
+//they cannot be accessed because they are private fields
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
+// console.log(acc1.#approveLoan(100));
+
+Account.helper();
